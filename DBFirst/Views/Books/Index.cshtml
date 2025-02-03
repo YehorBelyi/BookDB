@@ -1,0 +1,55 @@
+﻿@model PaginatedList<Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+    <h1 class="bg-info text-center">Index</h1>
+
+    <p>
+        <a asp-action="Create" target="_blank" class="btn btn-success m-auto">Create New</a>
+    </p>
+</div>
+<form asp-action="Indexdata" data-ajax="true" data-ajax-update="#Tabledata" data-ajax-method="GET">
+
+    <div class="container-fluid form-actions no-color d-flex justify-content-around">
+        <div class="">
+            <p>Search by name</p>
+            <input type="text" class="form-control mt-1" style="width: 400px;" id="searchString" name="searchString" value=@ViewData["CurrentFilter"] />
+        </div>
+        <div class="">
+            <p>Records per page</p>
+            <div class="d-flex ml-2">
+            <input type="number" class="form-control mr-1" style="width: 400px;" name="recordsPerPage" value=@TempData.Peek("RecordsPerPage") />
+            <input type="submit" value="Set page size" class="btn btn-primary ml-1" style="transform: translateX(10px)" />
+            <a asp-action="Indexdata"
+               data-ajax="true"
+               data-ajax-update="#Tabledata"
+               data-ajax-method="GET"
+               data-ajax-complete="onComplete"
+               style="transform: translate(20px, 5px)">
+                Back to Full List
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sucess table-striped" id="Tabledata">
+        @{ 
+            await Html.RenderPartialAsync("Indexdata", Model);
+        }
+    </table>
+</form>
+
+@section scripts {
+    <script src="~/lib/jquery.unobtrusive-ajax/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script type="text/javascript">
+
+        var onComplete = function () {
+            $("#searchString").val('');
+        };
+
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@model PaginatedList<Book>
+
+<partial name="_Headerdata" data="@Model" />
+
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.New)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Izd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Format)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pressrun)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Themes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.N">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.N">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.N">Delete</a>
+            </td>
+        </tr>
+    }
+</tbody>
+
+<partial name="_Pagingdata" data="@Model" />

@@ -1,0 +1,46 @@
+﻿@model PaginatedList<Book>
+
+<tfoot>
+    <tr>
+        <td colspan="12">
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+
+            <div class="container-fluid form-actions no-color d-flex justify-content-around">
+                <a asp-action="Indexdata"
+                   asp-route-sortOrder=@ViewData["CurrentSort"]
+                   asp-route-pageNumber=@(Model.PageIndex - 1)
+                   asp-route-searchString=@ViewData["CurrentFilter"]
+                   data-ajax="true"
+                   data-ajax-update="#Tabledata"
+                   data-ajax-method="GET"
+                   class="btn btn-danger @prevDisabled">
+                    Previous Page
+                </a>
+
+                <a class="btn btn-primary disabled">
+                    Page № @Model.PageIndex
+                </a>
+
+                <a asp-action="Indexdata"
+                   asp-route-sortOrder=@ViewData["CurrentSort"]
+                   asp-route-pageNumber=@(Model.PageIndex + 1)
+                   asp-route-searchString=@ViewData["CurrentFilter"]
+                   data-ajax="true"
+                   data-ajax-update="#Tabledata"
+                   data-ajax-method="GET"
+                   class="btn btn-success @nextDisabled">
+                    Next Page
+                </a>
+            </div>
+
+            <div class="form-actions no-color mt-2 d-flex justify-content-center" style="transform:translateX(12px)">
+                <a class="btn btn-secondary disabled">
+                    Total Pages - @Model.TotalPages
+                </a>
+            </div>
+        </td>
+    </tr>
+</tfoot>
